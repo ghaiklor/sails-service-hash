@@ -12,19 +12,19 @@ describe('BaseHash', function () {
     assert.isFunction(BaseHash.prototype.compareSync);
 
     assert.throws(function () {
-      BaseCipher.prototype.hash();
+      BaseHash.prototype.hash();
     }, Error);
 
     assert.throws(function () {
-      BaseCipher.prototype.hashSync();
+      BaseHash.prototype.hashSync();
     }, Error);
 
     assert.throws(function () {
-      BaseCipher.prototype.compare();
+      BaseHash.prototype.compare();
     }, Error);
 
     assert.throws(function () {
-      BaseCipher.prototype.compareSync();
+      BaseHash.prototype.compareSync();
     }, Error);
   });
 
