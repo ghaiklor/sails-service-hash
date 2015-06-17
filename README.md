@@ -1,5 +1,7 @@
 # sails-service-hash
 
+![Build Status](https://img.shields.io/travis/ghaiklor/sails-service-hash.svg) ![Coverage](https://img.shields.io/coveralls/ghaiklor/sails-service-hash.svg) ![Downloads](https://img.shields.io/npm/dm/sails-service-hash.svg) ![npm version](https://img.shields.io/npm/v/sails-service-hash.svg) ![dependencies](https://img.shields.io/david/ghaiklor/sails-service-hash.svg) ![dev dependencies](https://img.shields.io/david/dev/ghaiklor/sails-service-hash.svg) ![License](https://img.shields.io/npm/l/sails-service-hash.svg)
+
 Service for Sails framework with Hash features.
 
 ## List of supported hashes
