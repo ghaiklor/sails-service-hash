@@ -18,4 +18,8 @@ describe('HashService', function () {
       HashService.create('NOT_EXISTS');
     }, Error);
   });
+
+  it('Should properly hash bcrypt', function () {
+    assert.isString(HashService.create('bcrypt').hashSync('SOME_DATA'));
+  });
 });
