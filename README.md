@@ -8,6 +8,92 @@ Service for Sails framework with Hash features.
 
 - bcrypt
 
+## Getting Started
+
+Install this module.
+
+```shell
+npm install sails-service-hash
+```
+
+Then require it in your service.
+
+```javascript
+// api/services/HashService.js
+module.exports = require('sails-service-hash');
+```
+
+That's it, you can create instances of hash for your need in your project.
+
+```javascript
+// api/controllers/SomeController.js
+var bcrypt = HashService.create('bcrypt');
+
+module.exports = {
+  someAction: function(req, res) {
+    var myPasswordInHash = bcrypt.hashSync('MY_PASSWORD');
+    var isCorrectPassword = bcrypt.compareSync('MY_PASSWORD', myPasswordInHash);
+    res.ok(isCorrectPassword);
+  }
+};
+```
+
+## API
+
+Each of Hash instances has 4 methods:
+
+- hash(data) - Hash your data and returns Promise
+- hashSync(data) - Hash your data and returns hash
+- compare(plainData, hash) - Compare plainData with hash and returns Promise
+- compareSync(plainData, hash) - Compare plainData with hash and returns Boolean
+
+## Examples
+
+### Async hashing/comparing
+
+```javascript
+var bcrypt = HashService.create('bcrypt');
+
+bcrypt.hash('MY_PASSWORD').then(function(hash) {
+  bcrypt.compare('MY_PASSWORD', hash).then(function(isEqual) {
+    console.log(isEqual);
+  });
+});
+```
+
+### Sync hashing/comparing
+
+```javascript
+var bcrypt = HashService.create('bcrypt');
+
+var hash = bcrypt.hashSync('MY_PASSWORD');
+var isEqual = bcrypt.compareSync('MY_PASSWORD', hash);
+```
+
+### One of use-cases
+
+```javascript
+// api/services/HashService.js
+module.exports = require('sails-service-hash');
+
+// api/controllers/AuthController.js
+var bcrypt = HashService.create('bcrypt');
+
+module.exports = {
+  signin: function(req, res) {
+    var plainPassword = req.param('password');
+
+    bcrypt
+      .compare(plainPassword, req.user.password)
+      .then(function(isEqual) {
+        return isEqual ? 'You are authorized' : 'Wrong password';
+      })
+      .then(res.ok)
+      .catch(res.serverError);
+  }
+};
+```
+
 ## License
 
 The MIT License (MIT)
