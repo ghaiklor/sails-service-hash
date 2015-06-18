@@ -20,6 +20,10 @@ describe('HashService', function () {
   });
 
   it('Should properly hash bcrypt', function () {
-    assert.isString(HashService.create('bcrypt').hashSync('SOME_DATA'));
+    var hasher = HashService.create('bcrypt');
+    var hash = hasher.hashSync('MY_PASSWORD');
+
+    assert.ok(hasher.compareSync('MY_PASSWORD', hash));
+    assert.notOk(hasher.compareSync('WRONG_PASSWORD', hash));
   });
 });
