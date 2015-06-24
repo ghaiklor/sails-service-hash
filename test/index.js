@@ -6,7 +6,7 @@ describe('HashService', function () {
   it('Should properly export', function () {
     assert.isObject(HashService);
     assert.isFunction(HashService.create);
-    assert.isFunction(HashService.BCrypt);
+    assert.isFunction(HashService.BCryptHash);
   });
 
   it('Should properly create bcrypt instance', function () {
