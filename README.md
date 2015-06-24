@@ -49,49 +49,20 @@ Each of Hash instances has 4 methods:
 
 ## Examples
 
-### Async hashing/comparing
+### BCryptHash
 
 ```javascript
-var bcrypt = HashService.create('bcrypt');
+var bcrypt = HashService.create('bcrypt', {
+  salt: '<SALT_GENERATED_VIA_BCRYPT>', // Optional argument if you want to specify custom salt
+  saltLength: 10 // Optional argument if you want to specify length of auto-generated salt
+});
 
 bcrypt.hash('MY_PASSWORD').then(function(hash) {
-  bcrypt.compare('MY_PASSWORD', hash).then(function(isEqual) {
-    console.log(isEqual);
-  });
+  bcrypt.compare('MY_PASSWORD', hash).then(console.log.bind(console));
 });
-```
-
-### Sync hashing/comparing
-
-```javascript
-var bcrypt = HashService.create('bcrypt');
 
 var hash = bcrypt.hashSync('MY_PASSWORD');
 var isEqual = bcrypt.compareSync('MY_PASSWORD', hash);
-```
-
-### One of use-cases
-
-```javascript
-// api/services/HashService.js
-module.exports = require('sails-service-hash');
-
-// api/controllers/AuthController.js
-var bcrypt = HashService.create('bcrypt');
-
-module.exports = {
-  signin: function(req, res) {
-    var plainPassword = req.param('password');
-
-    bcrypt
-      .compare(plainPassword, req.user.password)
-      .then(function(isEqual) {
-        return isEqual ? 'You are authorized' : 'Wrong password';
-      })
-      .then(res.ok)
-      .catch(res.serverError);
-  }
-};
 ```
 
 ## License
