@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0
+
+- Implement overriding config on hash/compare methods for bcrypt;
+
 ## 1.0.1
 
 - Update docs;
