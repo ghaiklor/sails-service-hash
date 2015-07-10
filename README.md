@@ -42,10 +42,10 @@ module.exports = {
 
 Each of Hash instances has 4 methods:
 
-- hash(data) - Hash your data and returns Promise
-- hashSync(data) - Hash your data and returns hash
-- compare(plainData, hash) - Compare plainData with hash and returns Promise
-- compareSync(plainData, hash) - Compare plainData with hash and returns Boolean
+- hash(data, config) - Hash your data and returns Promise. In config you can override pre-defined config.
+- hashSync(data, config) - Hash your data and returns hash. In config you can override pre-defined config.
+- compare(plainData, hash) - Compare plainData with hash and returns Promise.
+- compareSync(plainData, hash) - Compare plainData with hash and returns Boolean.
 
 ## Examples
 
