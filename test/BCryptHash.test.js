@@ -66,4 +66,16 @@ describe('BCryptHash', function () {
     assert.ok(hasher.compareSync(TEST_PASSWORD, TEST_PASSWORD_IN_BCRYPT));
     assert.notOk(hasher.compareSync('WRONG_DATA', TEST_PASSWORD_IN_BCRYPT));
   });
+
+  it('Should properly override predefined config on hash/compare', function () {
+    var hasher = new BCryptHash();
+    var defaultSaltHash = hasher.hashSync(TEST_PASSWORD);
+    var overrideSaltHash = hasher.hashSync(TEST_PASSWORD, {
+      salt: SALT
+    });
+
+    assert.notEqual(defaultSaltHash, overrideSaltHash);
+    assert.ok(hasher.compareSync(TEST_PASSWORD, defaultSaltHash));
+    assert.ok(hasher.compareSync(TEST_PASSWORD, overrideSaltHash));
+  });
 });
