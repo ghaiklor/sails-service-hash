@@ -1,5 +1,4 @@
 var assert = require('chai').assert;
-var bcrypt = require('bcrypt');
 var BCryptHash = require('../lib/BCryptHash');
 
 var SALT = '$2a$10$8Ux95eQglaUMSn75J7MAXO';
@@ -9,6 +8,12 @@ var TEST_PASSWORD_IN_BCRYPT = '$2a$10$8Ux95eQglaUMSn75J7MAXOrHISe8xlR596kiYoVs2s
 describe('BCryptHash', function () {
   it('Should properly export', function () {
     assert.isFunction(BCryptHash);
+  });
+
+  it('Should properly create bcrypt with default options', function () {
+    var hash = new BCryptHash();
+    assert.notOk(hash.getSalt());
+    assert.equal(hash.getSaltLength(), 10);
   });
 
   it('Should properly get/set salt', function () {
@@ -26,56 +31,58 @@ describe('BCryptHash', function () {
   });
 
   it('Should properly hash data without options', function (done) {
-    var hasher = new BCryptHash();
-    hasher.hash(TEST_PASSWORD).then(function (result) {
+    var hash = new BCryptHash();
+
+    hash.hash(TEST_PASSWORD).then(function (result) {
       assert.isString(result);
       done();
     });
   });
 
   it('Should properly hash data with predefined salt', function (done) {
-    var hasher = new BCryptHash({
+    var hash = new BCryptHash({
       salt: SALT
     });
 
-    hasher.hash(TEST_PASSWORD).then(function (result) {
+    hash.hash(TEST_PASSWORD).then(function (result) {
       assert.equal(result, TEST_PASSWORD_IN_BCRYPT);
       done();
     });
   });
 
   it('Should properly hash data in sync', function () {
-    var hasher = new BCryptHash({
+    var hash = new BCryptHash({
       salt: SALT
     });
-    assert.equal(hasher.hashSync(TEST_PASSWORD), TEST_PASSWORD_IN_BCRYPT);
+
+    assert.equal(hash.hashSync(TEST_PASSWORD), TEST_PASSWORD_IN_BCRYPT);
   });
 
   it('Should properly compare plain data with hash', function (done) {
-    var hasher = new BCryptHash();
+    var hash = new BCryptHash();
 
-    hasher.compare(TEST_PASSWORD, TEST_PASSWORD_IN_BCRYPT).then(function (result) {
+    hash.compare(TEST_PASSWORD, TEST_PASSWORD_IN_BCRYPT).then(function (result) {
       assert.ok(result);
       done();
     });
   });
 
   it('Should properly compare plain data with hash in sync', function () {
-    var hasher = new BCryptHash();
+    var hash = new BCryptHash();
 
-    assert.ok(hasher.compareSync(TEST_PASSWORD, TEST_PASSWORD_IN_BCRYPT));
-    assert.notOk(hasher.compareSync('WRONG_DATA', TEST_PASSWORD_IN_BCRYPT));
+    assert.ok(hash.compareSync(TEST_PASSWORD, TEST_PASSWORD_IN_BCRYPT));
+    assert.notOk(hash.compareSync('WRONG_DATA', TEST_PASSWORD_IN_BCRYPT));
   });
 
   it('Should properly override predefined config on hash/compare', function () {
-    var hasher = new BCryptHash();
-    var defaultSaltHash = hasher.hashSync(TEST_PASSWORD);
-    var overrideSaltHash = hasher.hashSync(TEST_PASSWORD, {
+    var hash = new BCryptHash();
+    var defaultSaltHash = hash.hashSync(TEST_PASSWORD);
+    var overrideSaltHash = hash.hashSync(TEST_PASSWORD, {
       salt: SALT
     });
 
     assert.notEqual(defaultSaltHash, overrideSaltHash);
-    assert.ok(hasher.compareSync(TEST_PASSWORD, defaultSaltHash));
-    assert.ok(hasher.compareSync(TEST_PASSWORD, overrideSaltHash));
+    assert.ok(hash.compareSync(TEST_PASSWORD, defaultSaltHash));
+    assert.ok(hash.compareSync(TEST_PASSWORD, overrideSaltHash));
   });
 });
