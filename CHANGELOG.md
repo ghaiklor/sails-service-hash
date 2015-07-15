@@ -1,5 +1,9 @@
 # Changelog
 
+## Edge version
+
+- Replace `getConfig()` and `setConfig()` with `get()` and `set()`;
+
 ## 1.1.0
 
 - Implement overriding config on hash/compare methods for bcrypt;
