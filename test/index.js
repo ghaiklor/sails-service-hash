@@ -1,6 +1,6 @@
 var assert = require('chai').assert;
 var HashService = require('../');
-var BCryptHash = require('../lib/BCryptHash');
+var BCryptHash = HashService.BCryptHash;
 
 describe('HashService', function () {
   it('Should properly export', function () {
