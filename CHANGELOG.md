@@ -4,6 +4,7 @@
 
 - Replace `getConfig()` and `setConfig()` with `get()` and `set()`;
 - Fix overriding pre-defined config in `hash` and `hashSync` methods;
+- Optimize `create` in HashService method;
 
 ## 1.1.0
 
