@@ -3,6 +3,7 @@
 ## Edge version
 
 - Replace `getConfig()` and `setConfig()` with `get()` and `set()`;
+- Fix overriding pre-defined config in `hash` and `hashSync` methods;
 
 ## 1.1.0
 
