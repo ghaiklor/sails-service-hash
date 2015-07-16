@@ -14,6 +14,7 @@ describe('BCryptHash', function () {
     var hash = new BCryptHash();
     assert.notOk(hash.getSalt());
     assert.equal(hash.getSaltLength(), 10);
+    assert.equal(hash.getRounds(), 10);
   });
 
   it('Should properly get/set salt', function () {
@@ -28,6 +29,30 @@ describe('BCryptHash', function () {
     assert.equal(hash.getSaltLength(), 10);
     assert.instanceOf(hash.setSaltLength(15), BCryptHash);
     assert.equal(hash.getSaltLength(), 15);
+  });
+
+  it('Should properly get/set rounds', function () {
+    var hash = new BCryptHash();
+    assert.equal(hash.getRounds(), 10);
+    assert.instanceOf(hash.setRounds(15), BCryptHash);
+    assert.equal(hash.getRounds(), 15);
+  });
+
+  it('Should properly generate salt', function (done) {
+    var hash = new BCryptHash();
+
+    hash
+      .generateSalt()
+      .then(function (salt) {
+        assert.isString(salt);
+        done();
+      })
+      .catch(done);
+  });
+
+  it('Should properly generate salt in sync mode', function () {
+    var hash = new BCryptHash();
+    assert.isString(hash.generateSaltSync());
   });
 
   it('Should properly hash data without options', function (done) {
@@ -48,6 +73,23 @@ describe('BCryptHash', function () {
       assert.equal(result, TEST_PASSWORD_IN_BCRYPT);
       done();
     });
+  });
+
+  it('Should properly hash data with predefined salt length', function () {
+    var hash = new BCryptHash({
+      saltLength: 8
+    });
+
+    assert.isString(hash.hashSync(TEST_PASSWORD));
+  });
+
+  it('Should properly hash data with auto-generated salt', function () {
+    var hash = new BCryptHash({
+      rounds: 5
+    });
+
+    assert.instanceOf(hash.setSalt(hash.generateSaltSync()), BCryptHash);
+    assert.isString(hash.hashSync(TEST_PASSWORD));
   });
 
   it('Should properly hash data in sync', function () {
