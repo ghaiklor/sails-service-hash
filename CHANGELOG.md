@@ -1,6 +1,6 @@
 # Changelog
 
-## Edge version
+## 2.0.0
 
 - Replace `getConfig()` and `setConfig()` with `get()` and `set()`;
 - Fix overriding pre-defined config in `hash` and `hashSync` methods;
