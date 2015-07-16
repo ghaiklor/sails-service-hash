@@ -42,10 +42,41 @@ module.exports = {
 
 Each of Hash instances has 4 methods:
 
-- hash(data, config) - Hash your data and returns Promise. In config you can override pre-defined config.
-- hashSync(data, config) - Hash your data and returns hash. In config you can override pre-defined config.
-- compare(plainData, hash) - Compare plainData with hash and returns Promise.
-- compareSync(plainData, hash) - Compare plainData with hash and returns Boolean.
+### hash(data, config)
+
+`data` - Plain data that you want to hash.
+
+`config` - Additional configuration for override pre-defined config.
+
+Hash your data and returns Promise.
+
+### hashSync(data, config)
+
+`data` - Plain data that you want to hash.
+
+`config` - Additional configuration for override pre-defined config.
+
+Hash your data in sync mode and returns hash.
+
+### compare(plainData, hash, config)
+
+`plainData` - Plain data that you want to compare with.
+
+`hash` - Hash that was got from hash methods.
+
+`config` - Additional configuration for override pre-defined config.
+
+Compare `plainData` with `hash` and returns Promise.
+
+### compareSync(plainData, hash, config)
+
+`plainData` - Plain data that you want to compare with.
+
+`hash` - Hash that was got from hash methods.
+
+`config` - Additional configuration for override pre-defined config.
+
+Compare `plainData` with `hash` and returns Boolean.
 
 ## Examples
 
@@ -53,8 +84,7 @@ Each of Hash instances has 4 methods:
 
 ```javascript
 var bcrypt = HashService.create('bcrypt', {
-  salt: '<SALT_GENERATED_VIA_BCRYPT>', // Optional argument if you want to specify custom salt
-  saltLength: 10 // Optional argument if you want to specify length of auto-generated salt
+  saltLength: 10 // Optional argument if you want to specify rounds for of auto-generated salt
 });
 
 bcrypt.hash('MY_PASSWORD').then(function(hash) {
@@ -64,6 +94,12 @@ bcrypt.hash('MY_PASSWORD').then(function(hash) {
 var hash = bcrypt.hashSync('MY_PASSWORD');
 var isEqual = bcrypt.compareSync('MY_PASSWORD', hash);
 ```
+
+## How to add another hash?
+
+- You MUST inherits from `BaseHash`.
+
+- Your class MUST implement all the methods described above in API section.
 
 ## License
 
