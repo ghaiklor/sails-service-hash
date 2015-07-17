@@ -50,6 +50,18 @@ describe('BCryptHash', function () {
       .catch(done);
   });
 
+  it('Should properly generate salt and throw exception', function (done) {
+    var hash = new BCryptHash();
+
+    hash
+      .generateSalt('WRONG_SALT')
+      .then(done)
+      .catch(function (error) {
+        assert.instanceOf(error, Error);
+        done();
+      });
+  });
+
   it('Should properly generate salt in sync mode', function () {
     var hash = new BCryptHash();
     assert.isString(hash.generateSaltSync());
@@ -92,6 +104,20 @@ describe('BCryptHash', function () {
     assert.isString(hash.hashSync(TEST_PASSWORD));
   });
 
+  it('Should properly throw exception on hash with wrong salt', function (done) {
+    var hash = new BCryptHash({
+      salt: 'WRONG_SALT'
+    });
+
+    hash
+      .hash('DATA')
+      .then(done)
+      .catch(function (error) {
+        assert.instanceOf(error, Error);
+        done();
+      });
+  });
+
   it('Should properly hash data in sync', function () {
     var hash = new BCryptHash({
       salt: SALT
@@ -126,5 +152,17 @@ describe('BCryptHash', function () {
     assert.notEqual(defaultSaltHash, overrideSaltHash);
     assert.ok(hash.compareSync(TEST_PASSWORD, defaultSaltHash));
     assert.ok(hash.compareSync(TEST_PASSWORD, overrideSaltHash));
+  });
+
+  it('Should properly throw exception on compare', function (done) {
+    var hash = new BCryptHash();
+
+    hash
+      .compare()
+      .then(done)
+      .catch(function (error) {
+        assert.instanceOf(error, Error);
+        done();
+      });
   });
 });
