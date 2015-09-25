@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.1
+
+- Fix Travis CI testing;
+
 ## 3.0.0
 
 - Migration from ES5 to ES6;
