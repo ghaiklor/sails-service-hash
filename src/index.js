@@ -1,21 +1,19 @@
-var hashes = {
+import BCryptHash from './BCryptHash';
+
+var hash = {
   bcrypt: require('./BCryptHash')
 };
 
-module.exports = {
-  /**
-   * Create Hash instance
-   * @param {String} type Type of hash instance
-   * @param {Object} config Additional options for hash instance
-   * @returns {*}
-   */
-  create: function (type, config) {
-    if (hashes[type.toLowerCase()] instanceof Function) {
-      return new hashes[type.toLowerCase()](config);
-    } else {
-      throw new Error('Unrecognized type -> ' + type);
-    }
-  },
-
-  BCryptHash: hashes.bcrypt
-};
+/**
+ * Create Hash instance
+ * @param {String} type Type of hash instance
+ * @param {Object} config Additional options for hash instance
+ * @returns {*}
+ */
+export default function (type, config) {
+  if (hash[type.toLowerCase()] instanceof Function) {
+    return new hash[type.toLowerCase()](config);
+  } else {
+    throw new Error('Unrecognized type -> ' + type);
+  }
+}
