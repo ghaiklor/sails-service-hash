@@ -23,23 +23,19 @@ Install this module.
 npm install sails-service-hash
 ```
 
-Then require it in your service.
+Then require it in your service and create Hash instance.
 
 ```javascript
 // api/services/HashService.js
-module.exports = require('sails-service-hash');
-```
+import HashService from 'sails-service-hash';
 
-That's it, you can create instances of hash for your need in your project.
+export default HashService('bcrypt');
 
-```javascript
-// api/controllers/SomeController.js
-var bcrypt = HashService.create('bcrypt');
-
-module.exports = {
-  someAction: function(req, res) {
-    var myPasswordInHash = bcrypt.hashSync('MY_PASSWORD');
-    var isCorrectPassword = bcrypt.compareSync('MY_PASSWORD', myPasswordInHash);
+// api/controllers/HashController.js
+export default {
+  compare: function(req, res) {
+    let myPasswordInHash = HashService.hashSync('MY_PASSWORD');
+    let isCorrectPassword = HashService.compareSync('MY_PASSWORD', myPasswordInHash);
     res.ok(isCorrectPassword);
   }
 };
@@ -90,16 +86,16 @@ Compare `plainData` with `hash` and returns Boolean.
 ### BCryptHash
 
 ```javascript
-var bcrypt = HashService.create('bcrypt', {
+let bcrypt = HashService('bcrypt', {
   saltLength: 10 // Optional argument if you want to specify rounds for of auto-generated salt
 });
 
-bcrypt.hash('MY_PASSWORD').then(function(hash) {
+bcrypt.hash('MY_PASSWORD').then(hash => {
   bcrypt.compare('MY_PASSWORD', hash).then(console.log.bind(console));
 });
 
-var hash = bcrypt.hashSync('MY_PASSWORD');
-var isEqual = bcrypt.compareSync('MY_PASSWORD', hash);
+let hash = bcrypt.hashSync('MY_PASSWORD');
+let isEqual = bcrypt.compareSync('MY_PASSWORD', hash);
 ```
 
 ## How to add another hash?
