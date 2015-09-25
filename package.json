@@ -2,8 +2,10 @@
   "name": "sails-service-hash",
   "version": "2.0.1",
   "description": "Service for Sails framework with Hash features",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
+    "compile": "babel src --out-dir lib",
+    "prepublish": "npm run compile",
     "test": "istanbul cover _mocha"
   },
   "repository": {
