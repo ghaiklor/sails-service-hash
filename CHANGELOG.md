@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.0
+
+- Migration from ES5 to ES6;
+- Remove `.create` method from HashService. HashService is a function now;
+
 ## 2.0.1
 
 - Improve branch coverage for `BCryptHash` class;
