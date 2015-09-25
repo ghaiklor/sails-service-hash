@@ -7,7 +7,7 @@ var hash = {
 /**
  * Create Hash instance
  * @param {String} type Type of hash instance
- * @param {Object} config Additional options for hash instance
+ * @param {Object} [config] Additional options for hash instance
  * @returns {*}
  */
 export default function (type, config) {
