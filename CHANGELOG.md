@@ -3,7 +3,7 @@
 ## 3.0.0
 
 - Migration from ES5 to ES6;
-- Remove `.create` method from HashService. HashService is a function now;
+- Remove `.create` method from HashService. HashService is a function now that you can call with `HashService('bcrypt')`;
 
 ## 2.0.1
 
