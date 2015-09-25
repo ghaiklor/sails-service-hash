@@ -1,7 +1,7 @@
 import BCryptHash from './BCryptHash';
 
 var hash = {
-  bcrypt: require('./BCryptHash')
+  bcrypt: BCryptHash
 };
 
 /**
