@@ -12,7 +12,7 @@ describe('HashService', () => {
   });
 
   it('Should properly throw Error if type is unrecognized', () => {
-    assert.throw(() => HashService.create('NOT_EXISTS'), Error);
+    assert.throw(() => HashService('NOT_EXISTS'), Error);
   });
 
   it('Should properly hash bcrypt', () => {
