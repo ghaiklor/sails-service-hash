@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.2
+
+- Add greenkeeper and pin dependencies;
+
 ## 3.0.1
 
 - Fix Travis CI testing;
