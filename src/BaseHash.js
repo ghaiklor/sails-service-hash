@@ -1,10 +1,9 @@
 import _ from 'lodash';
 
 export default class BaseHash {
-  constructor(config) {
+  constructor(_config) {
     this._config = {};
-
-    _.assign(this._config, config);
+    _.assign(this._config, _config);
   }
 
   /**
