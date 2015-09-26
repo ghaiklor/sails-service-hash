@@ -31,11 +31,11 @@ export default class BCryptHash extends BaseHash {
 
   /**
    * Set new salt for bcrypt
-   * @param {String} salt New salt
+   * @param {String} _salt New salt
    * @returns {BCryptHash}
    */
-  setSalt(salt) {
-    this.set('salt', salt);
+  setSalt(_salt) {
+    this.set('salt', _salt);
     return this;
   }
 
@@ -49,11 +49,11 @@ export default class BCryptHash extends BaseHash {
 
   /**
    * Set new salt length
-   * @param {Number} length Length of salt
+   * @param {Number} _length Length of salt
    * @returns {BCryptHash}
    */
-  setSaltLength(length) {
-    this.set('saltLength', length);
+  setSaltLength(_length) {
+    this.set('saltLength', _length);
     return this;
   }
 
@@ -67,85 +67,85 @@ export default class BCryptHash extends BaseHash {
 
   /**
    * Set rounds for generating salt
-   * @param {Number} rounds
+   * @param {Number} _rounds
    * @returns {BCryptHash}
    */
-  setRounds(rounds) {
-    this.set('rounds', rounds);
+  setRounds(_rounds) {
+    this.set('rounds', _rounds);
     return this;
   }
 
   /**
    * Generate new bcrypt salt
-   * @param {Number} [rounds]
+   * @param {Number} [_rounds]
    * @returns {Promise}
    */
-  generateSalt(rounds) {
+  generateSalt(_rounds) {
     return new Promise((resolve, reject) => {
-      bcrypt.genSalt(rounds || this.getRounds(), (error, salt) => error ? reject(error) : resolve(salt));
+      bcrypt.genSalt(_rounds || this.getRounds(), (error, salt) => error ? reject(error) : resolve(salt));
     });
   }
 
   /**
    * Generates new bcrypt salt in sync mode
-   * @param {Number} [rounds]
+   * @param {Number} [_rounds]
    * @returns {String}
    */
-  generateSaltSync(rounds) {
-    return bcrypt.genSaltSync(rounds || this.getRounds());
+  generateSaltSync(_rounds) {
+    return bcrypt.genSaltSync(_rounds || this.getRounds());
   }
 
   /**
    * Hash data
-   * @param {String} data Data to hash with bcrypt
+   * @param {String} _data Data to hash with bcrypt
    * @param {Object} [_config] Additional configuration where you can override pre-defined config
    * @returns {Promise}
    */
-  hash(data, _config) {
+  hash(_data, _config) {
     let config = _.merge({}, this.get(), {
       salt: this.getSalt(),
       saltLength: this.getSaltLength()
     }, _config);
 
     return new Promise((resolve, reject) => {
-      bcrypt.hash(data, config.salt || config.saltLength, (error, hash) => error ? reject(error) : resolve(hash));
+      bcrypt.hash(_data, config.salt || config.saltLength, (error, hash) => error ? reject(error) : resolve(hash));
     });
   }
 
   /**
    * Hash data in sync mode
-   * @param {String} data Data to hash with bcrypt
+   * @param {String} _data Data to hash with bcrypt
    * @param {Object} [_config] Additional configuration where you can override pre-defined config
    * @returns {String} Returns hashed data
    */
-  hashSync(data, _config) {
+  hashSync(_data, _config) {
     let config = _.merge({}, this.get(), {
       salt: this.getSalt(),
       saltLength: this.getSaltLength()
     }, _config);
 
-    return bcrypt.hashSync(data, config.salt || config.saltLength);
+    return bcrypt.hashSync(_data, config.salt || config.saltLength);
   }
 
   /**
    * Compare hash with plain data
-   * @param {String} plainData Plain data
-   * @param {String} hash Hash to compare with
+   * @param {String} _plainData Plain data
+   * @param {String} _hash Hash to compare with
    * @returns {Promise}
    */
-  compare(plainData, hash) {
+  compare(_plainData, _hash) {
     return new Promise((resolve, reject) => {
-      bcrypt.compare(plainData, hash, (error, equal) => error ? reject(error) : resolve(equal));
+      bcrypt.compare(_plainData, _hash, (error, equal) => error ? reject(error) : resolve(equal));
     });
   }
 
   /**
    * Compare data with hash in sync mode
-   * @param {String} plainData Plain data
-   * @param {String} hash Hash to compare with
+   * @param {String} _plainData Plain data
+   * @param {String} _hash Hash to compare with
    * @returns {Boolean} Returns true if equal
    */
-  compareSync(plainData, hash) {
-    return bcrypt.compareSync(plainData, hash);
+  compareSync(_plainData, _hash) {
+    return bcrypt.compareSync(_plainData, _hash);
   }
 };
