@@ -1,6 +1,6 @@
 import BCryptHash from './BCryptHash';
 
-var hash = {
+const hash = {
   bcrypt: BCryptHash
 };
 
