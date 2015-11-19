@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/ghaiklor/sails-service-hash#readme",
   "dependencies": {
-    "bcrypt": "0.8.5",
+    "bcryptjs": "2.3.0",
     "lodash": "3.10.1"
   },
   "devDependencies": {
