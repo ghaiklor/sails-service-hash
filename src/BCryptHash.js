@@ -17,8 +17,8 @@ const DEFAULT_SALT_LENGTH = 10;
 const DEFAULT_ROUNDS = 10;
 
 export default class BCryptHash extends BaseHash {
-  constructor(...args) {
-    super(...args);
+  constructor(config) {
+    super(config);
   }
 
   /**
